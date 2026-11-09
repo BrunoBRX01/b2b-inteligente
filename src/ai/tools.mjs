@@ -37,8 +37,8 @@ export async function resolveClient(ref) {
     'SELECT id, code, trade_name AS name FROM clients WHERE trade_name LIKE ? OR legal_name LIKE ? ORDER BY trade_name LIMIT 6', [`%${q}%`, `%${q}%`]
   );
   if (like.length === 1) return { client: like[0] };
-  if (!like.length) return { error: `Nenhum cliente encontrado para "${q}".` };
-  return { error: `Mais de um cliente combina com "${q}". Especifique o código.`, candidatos: like.map((c) => `${c.code} ${c.name}`) };
+  if (!like.length) return { error: `Nenhum cliente cadastrado encontrado para "${q}". Não use outro cliente no lugar: avise o usuário e peça o código (CLI-0000).` };
+  return { error: `Mais de um cliente combina com "${q}". Não escolha por conta própria: mostre os candidatos e peça o código.`, candidatos: like.map((c) => `${c.code} ${c.name}`) };
 }
 
 async function resolveQuote(ref) {
@@ -68,8 +68,8 @@ export const toolDefinitions = [
     cliente: { type: 'string', description: 'Código ou nome do cliente (opcional).' },
     status: { type: 'string', enum: Object.keys(SHIPMENT_STATUS) },
     limite: { type: 'integer', description: 'Máximo 30.' } }),
-  def('listar_cotacoes', 'Lista solicitações de cotação recebidas pelo site ou chatbot.', {
-    status: { type: 'string', enum: Object.keys(QUOTE_STATUS) },
+  def('listar_cotacoes', 'Lista solicitações de cotação recebidas pelo site ou chatbot, das mais recentes para as mais antigas. Sem status = todas.', {
+    status: { type: 'string', enum: Object.keys(QUOTE_STATUS), description: 'Opcional. Omita para listar todas.' },
     limite: { type: 'integer', description: 'Máximo 30.' } }),
   def('alterar_status_cotacao', 'Muda o status de uma cotação e opcionalmente grava uma nota.', {
     cotacao: { type: 'string', description: 'Referência da cotação (os 8 primeiros caracteres bastam).' },
@@ -134,7 +134,8 @@ const handlers = {
        FROM clients c LEFT JOIN shipments s ON s.client_id = c.id
        ${where.length ? `WHERE ${where.join(' AND ')}` : ''} GROUP BY c.id ORDER BY ${order} LIMIT ?`,
       [...params, Math.min(Number(limite) || 5, 20)]);
-    return { total: rows.length, clientes: rows };
+    const [[{ n }]] = await pool.query(`SELECT COUNT(*) AS n FROM clients c ${where.length ? `WHERE ${where.join(' AND ')}` : ''}`, params);
+    return { total_encontrado: n, mostrando: rows.length, clientes: rows };
   },
   async ficha_cliente({ cliente }) {
     const r = await resolveClient(cliente); if (r.error) return r;
@@ -173,9 +174,15 @@ const handlers = {
     if (status && QUOTE_STATUS[status]) { where = 'WHERE status = ?'; params.push(status); }
     const [rows] = await pool.query(
       `SELECT substr(id, 1, 8) AS ref, company_name AS empresa, contact_name AS contato, email, origin_country AS origem, product_summary AS produto,
-              estimated_volume AS volume, destination AS destino, status, date(created_at) AS recebida, ai_notes AS nota_ia
+              estimated_volume AS volume, destination AS destino, status, date(created_at) AS recebida, ai_notes AS nota_ia,
+              COALESCE((SELECT code FROM clients WHERE id = matched_client_id), 'não é cliente cadastrado') AS cliente_codigo
        FROM quote_requests ${where} ORDER BY created_at DESC LIMIT ?`, [...params, Math.min(Number(limite) || 5, 30)]);
-    return { total: rows.length, cotacoes: rows };
+    const [[{ n }]] = await pool.query(`SELECT COUNT(*) AS n FROM quote_requests ${where}`, params);
+    if (!n && where) {
+      const [[{ todas }]] = await pool.query('SELECT COUNT(*) AS todas FROM quote_requests');
+      return { total_encontrado: 0, mostrando: 0, cotacoes: [], aviso: `Nenhuma cotação com status "${QUOTE_STATUS[status]}". Existem ${todas} cotações no total: chame listar_cotacoes sem status para vê-las.` };
+    }
+    return { total_encontrado: n, mostrando: rows.length, cotacoes: rows };
   },
 
   async alterar_status_cotacao({ cotacao, status, nota }, ctx) {

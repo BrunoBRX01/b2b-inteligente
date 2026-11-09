@@ -12,6 +12,8 @@ Versão local do site institucional de logística, com página pública, chatbot
 4. Acesse `http://127.0.0.1:3000/` para o site e `http://127.0.0.1:3000/login` para o painel.
 5. Para parar, pressione `Ctrl+C` na janela do servidor.
 
+**Esqueceu a senha?** Execute `REDEFINIR_SENHA.bat`, informe o e-mail da conta e digite a nova senha (mínimo 14 caracteres; ela não aparece na tela). As sessões abertas dessa conta são encerradas e a troca fica registrada na auditoria.
+
 ### Pelo terminal do VS Code
 
 ```powershell

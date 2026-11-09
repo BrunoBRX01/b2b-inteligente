@@ -93,3 +93,34 @@ Este arquivo é o histórico oficial das alterações técnicas realizadas no pr
 - Criados atalhos Windows para inicialização, primeiro administrador, backup e testes.
 - Incluído banco inicial vazio, documentação de transporte entre computadores e teste integrado da API com persistência.
 - IA externa e dashboard demonstrativo continuam com as limitações anteriores.
+
+
+## 2026-11-09 — AI-002 Instalação no Windows e correções nas ferramentas da IA
+- **Tipo:** correção, infraestrutura e documentação.
+- **Motivo:** primeira instalação em Windows 11 real com IA local; nos testes, o assistente do painel informou "5 clientes" (havia 160) e registrou uma interação em um cliente diferente do pedido.
+- **Comportamento anterior:** `buscar_clientes` e `listar_cotacoes` devolviam `total` igual ao tamanho da página (padrão 5). Cotações não indicavam se a empresa era cliente cadastrado. Quando o cliente não era encontrado, o modelo podia escolher outro cliente e gravar a alteração nele.
+- **Comportamento novo:** as duas ferramentas devolvem `total_encontrado` e `mostrando` (mesmo padrão de `listar_embarques`). `listar_cotacoes` informa `cliente_codigo` ("não é cliente cadastrado" quando não há vínculo) e devolve um aviso quando o filtro de status não encontra nada. As mensagens de cliente não encontrado/ambíguo e o prompt do agente proíbem trocar o cliente pedido por outro.
+- **Arquivos alterados:** `src/ai/tools.mjs`, `src/ai/agent.mjs`, `TODO.md`, `docs/registro-de-alteracoes.md`.
+- **Arquivos criados:** `test/ai-tools.test.mjs`.
+- **Banco de dados:** sem alteração de esquema.
+- **APIs/integrações:** sem alteração de rotas; mudou apenas o formato do retorno das ferramentas internas da IA.
+- **Configuração/infraestrutura:** Ollama 0.40.15 com o modelo `qwen2.5:7b` (4,7 GB) instalado; banco copiado de `b2b-inteligente-dados` para `data/b2b.sqlite`. Com RTX 3050 (4 GB), o modelo roda ~55% CPU / 45% GPU; respostas de 15 a 50 s.
+- **Segurança e privacidade:** os testes do assistente foram feitos em cópia temporária do banco, apagada ao final; nenhum dado real foi alterado pelos testes.
+- **Testes:** `node --test` — 16 testes aprovados (15 anteriores + 1 novo). `INICIAR.bat`, `TESTAR.bat` e `FAZER_BACKUP.bat` executados no Windows 11 com Node.js 24.14. Chatbot público respondeu pela IA (`mode: ai`). Assistente do painel, em cópia do banco: informou 160 clientes e as 3 cotações corretas, e recusou registrar interação para empresa que não é cliente cadastrado.
+- **Riscos e reversão:** modelos de 7B ainda podem errar fatos gerais (ex.: definição de Incoterms); revisar textos da IA antes de enviar a clientes. Para reverter, restaurar `src/ai/tools.mjs` e `src/ai/agent.mjs` da versão anterior e remover `test/ai-tools.test.mjs`.
+- **Status:** implementado e validado localmente.
+
+## 2026-11-09 — AUTH-002 Redefinição de senha pelo computador local
+- **Tipo:** funcionalidade e segurança.
+- **Motivo:** as contas da equipe foram criadas com senhas aleatórias gravadas em `CREDENCIAIS_ADMIN.local.txt`, arquivo que não vai para o GitHub; ao clonar em outro computador não havia como entrar no painel. `CRIAR_ADMIN.bat` só funciona quando ainda não existe administrador.
+- **Comportamento anterior:** não havia forma de trocar a senha sem já estar logado como administrador.
+- **Comportamento novo:** `REDEFINIR_SENHA.bat` (ou `node --env-file=.env scripts/redefinir-senha.mjs`) pede o e-mail e a nova senha sem exibi-la, grava apenas o hash scrypt, encerra as sessões abertas da conta e registra `user.password_reset_local` em `audit_events`.
+- **Arquivos criados:** `REDEFINIR_SENHA.bat`, `scripts/redefinir-senha.mjs`, `src/password-reset.mjs`, `test/password-reset.test.mjs`.
+- **Arquivos alterados:** `README.md`, `docs/registro-de-alteracoes.md`.
+- **Banco de dados:** sem alteração de esquema.
+- **APIs/integrações:** sem alteração.
+- **Configuração/infraestrutura:** sem alteração.
+- **Segurança e privacidade:** exige acesso ao computador onde está o banco (quem tem o arquivo SQLite já tem acesso total aos dados). Senha entre 14 e 128 caracteres, nunca exibida nem gravada em texto puro.
+- **Testes:** `node --test` — 17 testes aprovados (1 novo). Redefinição executada no Windows 11 e login confirmado no servidor local.
+- **Riscos e reversão:** remover os quatro arquivos criados e o parágrafo do README.
+- **Status:** implementado e validado localmente.
