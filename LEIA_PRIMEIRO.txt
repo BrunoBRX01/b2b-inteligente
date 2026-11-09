@@ -1,0 +1,48 @@
+B2B INTELIGENTE - VERSAO LOCAL PORTATIL
+======================================
+
+ESTE PROJETO NAO PRECISA DE MYSQL, PNPM OU INTERNET PARA AS FUNCOES LOCAIS.
+Precisa apenas do Node.js 22.16+ instalado no computador, ou node.exe
+oficial do Windows x64 colocado na pasta runtime.
+
+PRIMEIRA VEZ
+1. Extraia TODO o ZIP em uma pasta do Windows (nao rode dentro do ZIP).
+2. Clique duas vezes em CRIAR_ADMIN.bat e crie o primeiro administrador.
+   - Informe seu e-mail, nome e uma senha exclusiva de 14+ caracteres.
+   - A senha nao aparece na tela durante a digitacao.
+3. Clique duas vezes em INICIAR.bat e deixe a janela aberta.
+4. No navegador, abra http://127.0.0.1:3000/
+5. Para entrar na area interna, abra http://127.0.0.1:3000/login
+
+O BANCO DE DADOS
+- Arquivo: data\b2b.sqlite
+- Criado e atualizado automaticamente; este ZIP ja traz um banco vazio.
+- Nao existe senha padrao. Os usuarios sao criados pelo administrador.
+- Os dados ficam neste computador, nao em um servidor externo.
+
+MUDAR PARA OUTRO COMPUTADOR COM OS MESMOS DADOS
+1. Feche INICIAR.bat / pare o servidor com Ctrl+C.
+2. Copie a pasta inteira para o outro computador, INCLUINDO data\b2b.sqlite.
+3. No outro computador, tenha Node.js 22.16+ (ou runtime\node.exe).
+4. Execute INICIAR.bat e entre com o mesmo usuario e senha.
+5. Nunca use o mesmo arquivo SQLite simultaneamente em dois computadores
+   por uma pasta de rede; para acesso multiusuario em rede, e necessario
+   outro tipo de implantacao.
+
+BACKUP
+- Execute FAZER_BACKUP.bat.
+- As copias sao gravadas na pasta backups\.
+- Guarde os backups em local seguro; contem dados de usuarios e clientes.
+- Para restaurar, pare o servidor, guarde o banco atual e copie um
+  backup .sqlite para data\b2b.sqlite.
+
+TESTES
+- Execute TESTAR.bat; ele verifica a aplicacao com banco temporario.
+
+LIMITES DESTA VERSAO
+- Site, login, usuarios, solicitacoes e chatbot institucional funcionam
+  localmente. O dashboard usa dados demonstrativos em partes.
+- A IA externa e notificacoes da plataforma antiga nao estao configuradas.
+- Nao e uma aplicacao para publicacao na Internet sem revisao adicional.
+
+Leia tambem README.md e docs\arquitetura-local.md.

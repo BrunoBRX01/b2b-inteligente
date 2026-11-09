@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Central da IA — B2B Inteligente</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/dashboard.css"><link rel="stylesheet" href="/assets/internal-pages.css"><link rel="stylesheet" href="/assets/clients.css"><link rel="stylesheet" href="/assets/ai.css"></head>
+<body>
+<aside class="sidebar"><a class="brand" href="/internal"><img src="/assets/logo.svg" alt=""><span><strong>B2B</strong><small>INTELIGENTE</small></span></a><div class="workspace"><span class="workspace-mark">B</span><span><small>ESPAÇO DE TRABALHO</small><strong>Operações</strong></span></div><p class="nav-label">MENU PRINCIPAL</p><nav class="main-nav" aria-label="Navegação principal"><a class="nav-link" href="/internal"><span class="nav-icon">▦</span> Visão geral</a><a class="nav-link" href="/internal/clients"><span class="nav-icon">◫</span> Clientes</a><a class="nav-link" href="/internal/requests"><span class="nav-icon">▤</span> Solicitações</a><a class="nav-link active" href="/internal/ai"><span class="nav-icon">✳</span> Central da IA</a><a class="nav-link" href="/internal/users" data-admin-only hidden><span class="nav-icon">♙</span> Usuários</a><a class="nav-link" href="/"><span class="nav-icon">↗</span> Site público</a></nav><div class="sidebar-bottom"><div class="profile"><span class="avatar user-initials">—</span><span class="profile-copy"><strong class="user-name">Carregando…</strong><small class="user-role">Equipe</small></span><button class="more logout-icon" data-logout aria-label="Sair da conta">↪</button></div></div></aside>
+<main class="internal-main">
+  <header class="topbar"><div class="breadcrumbs">Workspace <span>/</span> <strong>Central da IA</strong></div><div class="top-actions"><span class="ai-status" id="ai-status"><i></i> Verificando IA…</span><button class="logout-button" data-logout>Sair <span>↪</span></button></div></header>
+  <section class="page-heading"><div><p class="eyebrow">ASSISTENTE OPERACIONAL</p><h1>Central da IA</h1><p class="subtitle">Converse com a IA, veja tudo o que ela fez sozinha ou a pedido da equipe e revise os e-mails que ela escreveu.</p></div><div class="heading-actions"><button class="secondary-button" id="refresh-ai">↻ Atualizar</button></div></section>
+
+  <div class="ai-layout">
+    <section class="panel ai-chat-panel" aria-label="Conversa com a IA">
+      <div class="panel-heading"><div><h2>Conversar com a IA</h2><p>Ela consulta o banco e faz alterações direto, avisando o que fez.</p></div></div>
+      <div class="ai-chat-messages" id="ai-messages">
+        <div class="ai-msg assistant"><p>Olá! Posso consultar clientes, embarques e cotações, mudar status, registrar contatos, atualizar cadastros e escrever e-mails. O que você precisa?</p></div>
+      </div>
+      <div class="ai-suggestions" id="ai-suggestions">
+        <button type="button">Quais clientes ativos estão há mais tempo sem embarcar?</button>
+        <button type="button">Quantos embarques estão atrasados agora?</button>
+        <button type="button">Mostre as cotações novas</button>
+        <button type="button">Escreva um e-mail para a Rio Claro Química oferecendo frete consolidado</button>
+      </div>
+      <form class="ai-chat-form" id="ai-form"><textarea id="ai-input" rows="2" placeholder="Peça algo à IA… (Enter envia, Shift+Enter quebra linha)" aria-label="Mensagem para a IA"></textarea><button type="submit" class="primary-button" id="ai-send">Enviar</button></form>
+      <p class="ai-hint">A IA roda neste computador (Ollama). Cada resposta leva em geral de 10 a 30 segundos (a primeira do dia demora um pouco mais).</p>
+    </section>
+
+    <section class="panel ai-tasks-panel" aria-label="Tarefas automáticas">
+      <div class="panel-heading"><div><h2>Piloto automático</h2><p id="autopilot-state">Tarefas que a IA executa sozinha.</p></div></div>
+      <ul class="ai-tasks" id="ai-tasks"></ul>
+    </section>
+  </div>
+
+  <section class="panel ai-feed-panel">
+    <div class="ai-tabs" role="tablist">
+      <button role="tab" class="active" data-tab="activity">Atividades <span class="tab-count" id="count-activity"></span></button>
+      <button role="tab" data-tab="emails">Caixa de saída <span class="tab-count" id="count-emails"></span></button>
+      <button role="tab" data-tab="reports">Relatórios e dicas <span class="tab-count" id="count-reports"></span></button>
+    </div>
+    <div id="tab-activity" class="ai-tab-body"></div>
+    <div id="tab-emails" class="ai-tab-body" hidden></div>
+    <div id="tab-reports" class="ai-tab-body" hidden></div>
+  </section>
+  <footer class="internal-footer">© 2026 B2B Inteligente <span>•</span> IA local · dados fictícios</footer>
+</main>
+<dialog class="edit-dialog email-dialog" id="email-dialog"><form method="dialog" id="email-form"><div class="dialog-head"><div><p class="eyebrow">CAIXA DE SAÍDA</p><h2>Revisar e-mail</h2></div><button class="dialog-close" value="cancel" aria-label="Fechar">×</button></div><label>Para<input id="email-to" readonly></label><label>Assunto<input id="email-subject" maxlength="200"></label><label>Mensagem<textarea id="email-body" rows="12"></textarea></label><div class="dialog-actions"><button type="button" class="secondary-button" id="email-discard">Descartar</button><button type="button" class="secondary-button" id="email-save">Salvar</button><button type="button" class="secondary-button" id="email-open">Abrir no meu e-mail</button><button type="button" class="primary-button" id="email-sent">Marcar como enviado</button></div></form></dialog>
+<script src="/assets/internal-shared.js" type="module"></script><script src="/assets/ai.js" type="module"></script></body></html>

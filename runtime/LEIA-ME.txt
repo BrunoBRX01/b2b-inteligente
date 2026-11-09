@@ -1,0 +1,6 @@
+Opcional: coloque aqui o arquivo oficial node.exe para Windows x64,
+versao 22.16 ou superior, caso queira executar em um computador
+sem Node.js instalado. O projeto tambem usa o Node.js do PATH.
+
+Por seguranca, obtenha o executavel somente do site oficial nodejs.org.
+O executavel NAO esta incluido neste pacote.

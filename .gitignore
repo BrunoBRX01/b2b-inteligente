@@ -1,0 +1,12 @@
+node_modules/
+.env.local
+.DS_Store
+npm-debug.log*
+coverage/
+data/*.sqlite
+data/*.sqlite-*
+backups/
+CREDENCIAIS_ADMIN.local.txt
+# Guias pessoais (contêm e-mails da equipe)
+PARA_O_DAVI.txt
+WINDOWS_BRUNO.txt

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#f4f6f8">
+  <title>Acesso da equipe | B2B Inteligente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/login.css">
+</head>
+<body>
+  <main class="login-shell">
+    <section class="login-aside" aria-label="B2B Inteligente">
+      <a class="brand" href="/"><img src="/assets/logo.svg" alt="" width="42" height="42"><span><strong>B2B</strong><small>INTELIGENTE</small></span></a>
+      <div class="aside-copy"><span class="aside-kicker"><i></i> AMBIENTE CORPORATIVO</span><h1>Operação em<br>perspectiva.</h1><p>Um espaço de trabalho para acompanhar a operação e transformar informação em próximas decisões.</p><div class="aside-diagram" aria-hidden="true"><svg viewBox="0 0 450 180"><path d="M13 115h424M20 75h410M48 37v106m49-90v90m49-115v115m51-82v82m51-108v108m51-82v82m51-115v115m51-90v90"/><path d="M25 115c70-5 89-50 144-45s76 28 126-16 83-14 130-42"/><circle cx="169" cy="70" r="5"/><circle cx="295" cy="54" r="5"/><circle cx="425" cy="12" r="5"/></svg></div></div>
+      <div class="aside-bottom"><span>ACESSO RESTRITO</span><span>Funcionários e administradores</span></div>
+    </section>
+    <section class="login-main">
+      <a class="back-link" href="/">← Voltar ao site</a>
+      <div class="login-card">
+        <div class="login-icon">↗</div><span class="login-eyebrow">ÁREA DA EQUIPE</span><h2>Acesse sua conta</h2><p class="login-subtitle">Entre com seu e-mail e senha corporativos.</p>
+        <form id="login-form" novalidate>
+          <label for="email">E-mail corporativo</label><input id="email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="voce@empresa.com">
+          <div class="password-label"><label for="password">Senha</label></div><div class="password-wrap"><input id="password" name="password" type="password" autocomplete="current-password" required maxlength="128" placeholder="Digite sua senha"><button type="button" class="show-password" id="show-password" aria-label="Mostrar senha">Mostrar</button></div>
+          <div id="login-error" class="login-error" role="alert" aria-live="polite"></div>
+          <button class="login-button" type="submit"><span>Entrar no painel</span><span>→</span></button>
+        </form>
+        <div class="login-divider"><span></span><small>SEGURANÇA DA CONTA</small><span></span></div>
+        <p class="login-hint">Acesso exclusivo para pessoas autorizadas. Se você precisa de uma conta, fale com o administrador da sua empresa.</p>
+        <p class="no-client-login">Você é cliente? <a href="/#cotacao">Solicite contato pela página pública.</a></p>
+      </div>
+      <footer>© <span id="year"></span> B2B Inteligente <span>·</span> Ambiente privado</footer>
+    </section>
+  </main>
+  <script src="/assets/login.js" defer></script>
+</body>
+</html>

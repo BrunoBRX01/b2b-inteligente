@@ -1,0 +1,199 @@
+B2B INTELIGENTE — GUIA DE INSTALAÇÃO E UTILIZAÇÃO
+
+Versão local SQLite V2 | Windows | Passo a passo para iniciantes
+
+Este guia acompanha o arquivo B2B-Inteligente-Local-SQLite-v2.zip.
+
+1. O QUE VOCÊ RECEBEU
+
+O projeto contém o site B2B Inteligente, uma área administrativa, chatbot com respostas institucionais e um banco de dados local SQLite.
+
+-   NÃO precisa instalar MySQL, criar banco manualmente, usar pnpm ou rodar py -m http.server.
+-   PRECISA de Node.js 22.16 ou superior, ou de um node.exe oficial e compatível na pasta runtime.
+-   O banco fica no arquivo data\b2b.sqlite, dentro da pasta do projeto.
+-   O sistema funciona localmente no computador onde o servidor é iniciado.
+-   O ZIP não inclui senha padrão nem executável do Node.js.
+
+2. PREPARAR O COMPUTADOR
+
+PASSO 1 — Baixe o ZIP do projeto e salve-o no computador.
+
+PASSO 2 — Clique com o botão direito no ZIP e selecione “Extrair tudo”.
+
+PASSO 3 — Abra a pasta extraída B2B-Inteligente-Local.
+
+IMPORTANTE: não execute os arquivos diretamente de dentro do ZIP. Evite pastas protegidas do Windows, como C:\Program Files; uma pasta como C:\Projetos\B2B-Inteligente-Local costuma ser mais simples.
+
+PASSO 4 — Verifique se o Node.js está instalado. Abra o terminal do VS Code ou PowerShell e digite:
+
+    node --version
+
+Se aparecer uma versão igual ou superior a 22.16, pode continuar. Se o comando não for reconhecido, instale uma versão atual e compatível do Node.js pelo site oficial:
+
+    https://nodejs.org/en/download
+
+Depois, feche e abra novamente o terminal e repita node --version.
+
+ALTERNATIVA: use um node.exe oficial do Windows x64 compatível e coloque-o dentro de B2B-Inteligente-Local\runtime\. Os arquivos .bat priorizam esse executável. O node.exe não acompanha o ZIP.
+
+3. CRIAR O PRIMEIRO ADMINISTRADOR (SOMENTE NA PRIMEIRA VEZ)
+
+PASSO 5 — Na pasta B2B-Inteligente-Local, dê dois cliques em:
+
+    CRIAR_ADMIN.bat
+
+PASSO 6 — Preencha as informações solicitadas na janela:
+
+-   E-mail do administrador: use um endereço de e-mail válido.
+-   Nome completo.
+-   Senha exclusiva com pelo menos 14 caracteres.
+-   Confirmação da mesma senha.
+
+Ao digitar a senha, os caracteres não aparecem na tela. Isso é esperado. Pressione Enter depois de cada informação.
+
+PASSO 7 — Aguarde a mensagem informando que o administrador foi criado.
+
+ATENÇÃO: o sistema não possui senha padrão. Guarde suas credenciais com segurança. Se um administrador já existir no banco, o script não criará outro; novos usuários devem ser gerenciados pela área administrativa.
+
+4. INICIAR O SITE
+
+PASSO 8 — Dê dois cliques em:
+
+    INICIAR.bat
+
+PASSO 9 — Mantenha aberta a janela que aparece. Ela é o servidor local. Se a janela for fechada, o site deixará de responder.
+
+PASSO 10 — Abra Chrome, Edge ou outro navegador e acesse:
+
+    SITE:  http://127.0.0.1:3000/
+    LOGIN: http://127.0.0.1:3000/login
+
+PASSO 11 — No login, informe o e-mail e a senha criados no passo 6.
+
+NÃO use http://localhost:5500 nem py -m http.server: esses comandos servem apenas arquivos estáticos e não executam o sistema completo.
+
+5. UTILIZAÇÃO NO DIA A DIA
+
+1.  Abra a pasta B2B-Inteligente-Local.
+2.  Execute INICIAR.bat.
+3.  Entre no endereço http://127.0.0.1:3000/.
+4.  Use o login administrativo quando precisar acessar a área interna.
+5.  Ao terminar, volte à janela do servidor e pressione Ctrl+C. Se o Windows perguntar se deseja finalizar, confirme.
+
+O banco de dados permanece salvo mesmo depois que você fecha o programa.
+
+6. FAZER BACKUP DOS DADOS
+
+PASSO 1 — Na pasta do projeto, execute:
+
+    FAZER_BACKUP.bat
+
+PASSO 2 — Aguarde a confirmação de que o backup foi concluído.
+
+PASSO 3 — Encontre o arquivo gerado dentro da pasta:
+
+    B2B-Inteligente-Local\backups\
+
+O backup terá nome semelhante a b2b-backup-2026-11-06T...sqlite.
+
+Faça backups regulares e guarde cópias em local seguro. Esses arquivos podem conter informações de usuários e clientes.
+
+7. PASSAR O PROJETO PARA OUTRO COMPUTADOR
+
+PASSO 1 — No computador antigo, pare o servidor (Ctrl+C na janela do INICIAR.bat).
+
+PASSO 2 — Para maior segurança, execute FAZER_BACKUP.bat e confirme que o backup foi criado.
+
+PASSO 3 — Copie a pasta INTEIRA B2B-Inteligente-Local para um pendrive, HD externo ou outro meio seguro. Não copie somente os arquivos HTML.
+
+PASSO 4 — Confira especialmente se a cópia contém:
+
+    B2B-Inteligente-Local\data\b2b.sqlite
+
+PASSO 5 — No novo computador, cole a pasta completa.
+
+PASSO 6 — Verifique o Node.js com node --version ou coloque o executável oficial compatível em runtime\.
+
+PASSO 7 — Execute INICIAR.bat e abra http://127.0.0.1:3000/.
+
+PASSO 8 — Use o MESMO e-mail e senha de administrador. Não execute CRIAR_ADMIN.bat novamente quando estiver transferindo o banco com os usuários existentes.
+
+IMPORTANTE: isso é transferência, NÃO sincronização. Se os dois computadores continuarem sendo usados separadamente, os novos registros não serão compartilhados. Não abra o mesmo arquivo SQLite simultaneamente em dois computadores por uma pasta de rede.
+
+8. RESTAURAR UM BACKUP
+
+PASSO 1 — Pare o servidor antes de mexer no banco.
+
+PASSO 2 — Entre na pasta data e renomeie o arquivo atual b2b.sqlite para b2b-antigo.sqlite (não apague imediatamente).
+
+PASSO 3 — Copie o arquivo de backup .sqlite desejado para dentro de data.
+
+PASSO 4 — Renomeie a cópia do backup para exatamente:
+
+    b2b.sqlite
+
+PASSO 5 — Execute INICIAR.bat e verifique se os dados esperados voltaram.
+
+OBSERVAÇÃO: restaurar um backup retorna o banco ao estado daquele momento; dados adicionados depois da data do backup podem não estar presentes.
+
+9. TESTAR O PROJETO
+
+Se quiser executar os testes automatizados, dê dois cliques em:
+
+    TESTAR.bat
+
+Eles usam banco temporário e não devem alterar o banco real. A validação automatizada feita na preparação do pacote não substitui o teste dos arquivos .bat no seu Windows.
+
+10. SE APARECER UM ERRO
+
+ERRO: “node não é reconhecido” ou “Node.js não encontrado” - Instale Node.js 22.16 ou superior, reabra o terminal e teste node --version. - Ou coloque um node.exe oficial compatível na pasta runtime.
+
+ERRO: “Não é possível acessar esse site” - Verifique se INICIAR.bat está aberto e não exibiu erro. - Confirme que o endereço é http://127.0.0.1:3000/. - Se a porta 3000 estiver ocupada, encerre o programa que a está usando ou ajuste a porta no arquivo .env e use o novo número no navegador.
+
+ERRO: “Não consigo fazer login” - Confira o e-mail e a senha definidos em CRIAR_ADMIN.bat. - Verifique se copiou data\b2b.sqlite ao mudar de computador. - Não há senha padrão para recuperar.
+
+ERRO: “O site abre sem funcionar o login” - Não abra public\index.html diretamente e não use o servidor Python na porta 5500. - Inicie com INICIAR.bat e use a porta 3000.
+
+ERRO: “O Windows bloqueou a execução do .bat” - Confirme que os arquivos vieram do pacote que você pretendia usar antes de executar. - Se necessário, abra a pasta no VS Code e rode os comandos da seção 11, sem desativar proteções do sistema.
+
+11. EXECUTAR PELO VS CODE (ALTERNATIVA)
+
+Abra no VS Code a pasta B2B-Inteligente-Local. Em “Terminal > Novo Terminal”, execute:
+
+    node --version
+
+Para criar o primeiro administrador (apenas se ainda não existir):
+
+    node --env-file=.env scripts/create-admin.mjs
+
+Para iniciar o site:
+
+    node --env-file=.env src/server.mjs
+
+Para testar em outro terminal:
+
+    node --test
+
+Os comandos devem ser executados com o terminal localizado na pasta principal do projeto, onde está o arquivo .env.
+
+12. LIMITAÇÕES IMPORTANTES
+
+-   A versão foi preparada para uso local no próprio computador; não é uma instalação pública na Internet.
+-   Partes do dashboard ainda apresentam dados demonstrativos.
+-   Recursos de IA externa e notificações da plataforma anterior não estão configurados.
+-   O chatbot público possui respostas institucionais locais e resposta segura quando não há informação aprovada.
+-   Para vários computadores acessarem o mesmo sistema ao mesmo tempo, será necessária uma implantação centralizada apropriada; copiar pastas não cria uma rede multiusuário.
+-   Proteja a pasta data e os backups, pois podem conter dados pessoais e comerciais.
+
+13. ARQUIVOS PRINCIPAIS
+
+-   CRIAR_ADMIN.bat — cria o primeiro administrador.
+-   INICIAR.bat — inicia o site e o servidor.
+-   FAZER_BACKUP.bat — cria backup do banco.
+-   TESTAR.bat — executa testes automatizados.
+-   data\b2b.sqlite — banco de dados local.
+-   .env — configurações locais, incluindo porta e endereço.
+-   LEIA_PRIMEIRO.txt — instruções resumidas do pacote.
+-   README.md — documentação adicional.
+
+FIM DO GUIA

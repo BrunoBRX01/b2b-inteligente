@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>B2B Inteligente — Visão geral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/dashboard.css">
+  <link rel="stylesheet" href="/assets/dashboard-extra.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#inicio" aria-label="B2B Inteligente, início">
+      <img src="/assets/logo.svg" alt="">
+      <span><strong>B2B</strong><small>INTELIGENTE</small></span>
+    </a>
+    <div class="workspace"><span class="workspace-mark">B</span><span><small>ESPAÇO DE TRABALHO</small><strong>B2B Inteligente</strong></span><span class="chevron">⌄</span></div>
+    <p class="nav-label">MENU PRINCIPAL</p>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a class="nav-link active" href="#inicio"><span class="nav-icon">▦</span> Visão geral</a>
+      <a class="nav-link" href="#pedidos"><span class="nav-icon">▤</span> Embarques <span class="nav-count" id="nav-open-count">—</span></a>
+      <a class="nav-link" href="/internal/clients"><span class="nav-icon">◫</span> Clientes</a>
+      <a class="nav-link" href="/internal/requests"><span class="nav-icon">▧</span> Solicitações</a>
+      <a class="nav-link" href="/internal/ai"><span class="nav-icon">✳</span> Central da IA <span class="nav-dot"></span></a>
+      <a class="nav-link" href="#relatorios"><span class="nav-icon">▥</span> Relatórios</a>
+      <a class="nav-link" href="/internal/users" data-admin-only hidden><span class="nav-icon">♙</span> Usuários</a>
+      <a class="nav-link" href="/"><span class="nav-icon">↗</span> Site público</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="help-card"><span class="help-spark">✦</span><strong>Precisa de ajuda?</strong><p>Encontre respostas e dicas para aproveitar melhor sua plataforma.</p><a href="#ajuda">Acessar central de ajuda <span>↗</span></a></div>
+      <div class="profile"><span class="avatar user-initials">—</span><span class="profile-copy"><strong class="user-name">Carregando…</strong><small class="user-role">Equipe</small></span><button class="more logout-icon" data-logout aria-label="Sair da conta">↪</button></div>
+    </div>
+  </aside>
+
+  <main id="inicio">
+    <header class="topbar">
+      <button class="mobile-menu" id="mobile-menu" aria-label="Abrir menu">☰</button>
+      <div class="breadcrumbs">Workspace <span>/</span> <strong>Visão geral</strong></div>
+      <div class="top-actions"><span class="demo-pill"><i></i> Dados fictícios</span><a class="return-public" href="/">Site público ↗</a><button class="logout-button" data-logout>Sair <span>↪</span></button><span class="top-avatar user-initials">—</span></div>
+    </header>
+
+    <section class="page-heading">
+      <div><p class="eyebrow" id="current-date">ÁREA OPERACIONAL</p><h1>Visão geral</h1><p class="subtitle">Acompanhe a operação da sua empresa em um só lugar.</p></div>
+      <div class="heading-actions"><label class="period-select"><span>▦</span><select id="period" aria-label="Período"><option value="7">Últimos 7 dias</option><option value="30" selected>Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="365">Últimos 12 meses</option></select></label><button class="primary-button" id="export-btn"><span>↓</span> Exportar relatório</button></div>
+    </section>
+
+    <div class="demo-notice"><span>ⓘ</span><span><strong>Base fictícia</strong> — clientes, embarques e valores foram gerados para testes e não representam empresas reais.</span><button id="dismiss-notice" aria-label="Fechar aviso">×</button></div>
+
+    <section class="kpi-grid" aria-label="Indicadores principais">
+      <article class="kpi-card"><div class="kpi-top"><span>Embarques no período</span><span class="kpi-icon blue">▤</span></div><div class="kpi-value" id="total-pedidos">—</div><div class="kpi-foot"><span class="trend neutral">Amostra fictícia</span></div><div class="sparkline blue-line" aria-hidden="true"><svg viewBox="0 0 120 32"><path d="M0 25 C12 22 14 27 25 19 S39 18 47 20 60 7 70 12 82 18 91 8 105 12 120 2"/></svg></div></article>
+      <article class="kpi-card"><div class="kpi-top"><span>Entregues</span><span class="kpi-icon green">✓</span></div><div class="kpi-value" id="pedidos-entregues">—</div><div class="kpi-foot"><span class="trend neutral">Amostra fictícia</span></div><div class="sparkline green-line" aria-hidden="true"><svg viewBox="0 0 120 32"><path d="M0 25 C12 21 18 24 26 18 S42 22 51 13 66 17 77 10 91 16 100 8 111 10 120 3"/></svg></div></article>
+      <article class="kpi-card"><div class="kpi-top"><span>Atrasados agora</span><span class="kpi-icon red">!</span></div><div class="kpi-value" id="pedidos-atrasados">—</div><div class="kpi-foot"><span class="trend neutral">Amostra fictícia</span></div><div class="sparkline red-line" aria-hidden="true"><svg viewBox="0 0 120 32"><path d="M0 7 C10 11 15 4 25 12 S39 8 48 16 60 11 68 20 83 14 91 23 107 17 120 28"/></svg></div></article>
+      <article class="kpi-card"><div class="kpi-top"><span>Em andamento agora</span><span class="kpi-icon amber">◷</span></div><div class="kpi-value" id="pedidos-pendentes">—</div><div class="kpi-foot"><span class="trend neutral">Amostra fictícia</span></div><div class="sparkline amber-line" aria-hidden="true"><svg viewBox="0 0 120 32"><path d="M0 19 C10 12 17 22 27 17 S42 18 51 14 65 22 75 16 89 18 99 12 112 16 120 10"/></svg></div></article>
+    </section>
+
+    <section class="analytics-grid" id="relatorios">
+      <article class="panel performance-panel"><div class="panel-heading"><div><h2>Desempenho das entregas</h2><p id="chart-subtitle">Embarques recebidos e entregues por dia</p></div><button class="more-button" aria-label="Mais opções">···</button></div><div class="chart-legend"><span><i class="legend-dot blue-dot"></i> Entregues</span><span><i class="legend-dot gray-dot"></i> Recebidos</span><span class="chart-total"><strong id="chart-total">—</strong><small> faturado</small></span></div><div class="line-chart"><div class="y-labels" id="y-labels"><span>—</span><span></span><span></span><span>0</span></div><svg viewBox="0 0 760 210" preserveAspectRatio="none" role="img" aria-label="Embarques recebidos e entregues por dia"><defs><linearGradient id="areaBlue" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5575e8" stop-opacity=".18"/><stop offset="1" stop-color="#5575e8" stop-opacity="0"/></linearGradient></defs><path class="gridline" d="M0 30H760 M0 90H760 M0 150H760 M0 210H760"/><path class="area" id="chart-area" d=""/><path class="line-secondary" id="chart-received" d=""/><path class="line-primary" id="chart-delivered" d=""/></svg><div class="x-labels" id="x-labels"></div></div></article>
+      <article class="panel status-panel"><div class="panel-heading"><div><h2>Embarques por status</h2><p>Distribuição atual</p></div><button class="more-button" aria-label="Mais opções">···</button></div><div class="donut-wrap"><div class="donut" id="donut"><div class="donut-center"><strong id="donut-total">—</strong><small>embarques</small></div></div></div><div class="status-legend"><div><span><i class="legend-dot green-dot"></i> Entregues</span><strong id="qtd-entregues">—</strong></div><div><span><i class="legend-dot red-dot"></i> Atrasados</span><strong id="qtd-atrasados">—</strong></div><div><span><i class="legend-dot amber-dot"></i> Em andamento</span><strong id="qtd-pendentes">—</strong></div></div></article>
+    </section>
+
+    <section class="panel orders-panel" id="pedidos"><div class="panel-heading orders-heading"><div><h2>Embarques recentes</h2><p>Importações abertas no período selecionado.</p></div><a class="text-link" href="/internal/clients">Ver clientes <span>→</span></a></div><div class="table-toolbar"><label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Buscar embarque, cliente ou produto…" aria-label="Buscar embarque, cliente ou produto"></label><label class="filter-select"><select id="status-filter" aria-label="Filtrar por status"><option value="todos">Todos os status</option><option value="Entregue">Entregues</option><option value="Atrasado">Atrasados</option><option value="Pendente">Em andamento</option><option value="Cancelado">Cancelados</option></select></label></div><div class="table-scroll"><table><thead><tr><th>Embarque</th><th>Cliente</th><th>Data</th><th>Faturamento</th><th>Status</th><th aria-label="Ações"></th></tr></thead><tbody id="lista-pedidos"></tbody></table></div><div class="table-footer"><span id="table-count">Carregando…</span><button class="pagination-button" id="more-orders" aria-label="Mostrar mais">→</button></div></section>
+
+    <section class="assistant-strip" id="assistente"><div class="assistant-mark">✳</div><div class="assistant-copy"><span class="assistant-eyebrow">B2B INTELIGENTE · IA</span><h2>Peça à IA para consultar, alterar e escrever.</h2><p>Ela acessa clientes, embarques e cotações, faz alterações direto e avisa o que fez. Também trabalha sozinha: veja tudo na <a href="/internal/ai">Central da IA</a>.</p></div><button class="assistant-cta" id="open-chat">Conversar com a IA <span>↗</span></button></section>
+    <footer>© <span id="footer-year">2026</span> B2B Inteligente <span>•</span> Área interna · Base fictícia</footer>
+  </main>
+
+  <div class="chat-backdrop" id="chat-backdrop"></div>
+  <aside class="chat-drawer" id="chat-drawer" aria-label="Assistente IA" aria-hidden="true"><div class="chat-head"><div class="chat-title"><span class="chat-avatar">✳</span><div><strong>Assistente IA</strong><small><i></i> IA local · acesso ao banco</small></div></div><button id="close-chat" class="close-chat" aria-label="Fechar chat">×</button></div><div class="chat-context"><span>✦</span> A IA consulta e altera os dados do sistema. Tudo o que ela faz fica registrado na Central da IA.</div><div class="chat-messages" id="chat-messages"><div class="message assistant-message"><span class="message-avatar">✳</span><div><p>Olá! Posso consultar clientes, embarques e cotações, mudar status, registrar contatos e escrever e-mails. O que você precisa?</p><small>Agora</small></div></div><div class="suggestions"><button>Quantos embarques estão atrasados agora?</button><button>Quais são os 5 clientes que mais faturam?</button></div></div><form class="chat-form" id="chat-form"><input id="chat-input" placeholder="Escreva sua pergunta…" autocomplete="off" aria-label="Escreva sua pergunta"><button type="submit" aria-label="Enviar mensagem">↑</button><small>IA local: cada resposta leva em geral de 10 a 30 s.</small></form></aside>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/assets/internal-shared.js" type="module"></script>
+  <script src="/assets/dashboard.js" defer></script>
+</body>
+</html>
