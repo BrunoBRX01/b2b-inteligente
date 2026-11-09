@@ -34,6 +34,8 @@ node --env-file=.env src/server.mjs                  # ou INICIAR.bat / ./INICIA
 
 Para a IA: instale o [Ollama](https://ollama.com) e rode `ollama pull qwen2.5:7b`.
 
+Para guardar o banco em um repositório **privado** separado, clone-o ao lado desta pasta como `b2b-inteligente-dados` e rode `node --env-file=.env scripts/salvar-banco-github.mjs`.
+
 ## Transferir o projeto entre computadores
 
 1. **Pare o servidor** no computador de origem.
