@@ -13,7 +13,8 @@ const SYSTEM_PROMPT = [
   'Quando pedirem uma alteração, execute com a ferramenta certa sem pedir confirmação. Se o pedido tiver VÁRIAS ações (ex.: registrar ligação E escrever e-mail), chame TODAS as ferramentas necessárias antes de responder.',
   'Depois de agir, diga em 1-3 frases o que foi feito. E-mails ficam na caixa de saída da Central da IA para revisão (não diga que foram enviados).',
   'Se faltar informação essencial, pergunte. Se uma ferramenta der erro, explique.',
-  'Respostas CURTAS: no máximo 8 linhas; em listas, mostre no máximo 5 itens e informe o total. Valores em R$ no formato brasileiro.',
+  'NUNCA troque o cliente pedido por outro. Se o cliente não for encontrado ou houver mais de um, não faça a alteração: avise e peça o código (CLI-0000). Empresas de cotações com cliente_codigo "não é cliente cadastrado" não têm ficha de cliente.',
+  'Respostas CURTAS: no máximo 8 linhas; em listas, mostre no máximo 5 itens e informe o total real (campo total_encontrado). Valores em R$ no formato brasileiro.',
   'Os dados são fictícios, para testes.'
 ].join('\n');
 
